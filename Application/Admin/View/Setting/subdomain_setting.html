@@ -1,0 +1,50 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+        <a class="btn btn-default" href="{:U('setting/index')}">系统设置</a>
+        <a class="btn btn-default" href="{:U('setting/base_information')}">基本信息</a>
+        <a class="btn btn-default" href="{:U('setting/email_setting')}">Email</a>
+        <a class="btn btn-default" href="{:U('setting/captcha_setting')}">验证码</a>
+        <a class="btn btn-default" href="{:U('setting/store_setting')}">开店设置</a>
+        <a class="btn btn-default" href="{:U('setting/credit_setting')}">信用评价</a>
+        <a class="btn btn-primary" href="javascript:;">二级域名</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="" method="post">
+        <div class="form-group">
+            <label class="col-md-2 control-label">是否启用二级域名:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="enabled_subdomain" value="0" <eq name="setting.enabled_subdomain" value="0">checked="checked"</eq>/>否</label>
+                <label class="radio-inline"><input type="radio" name="enabled_subdomain" value="1" <eq name="setting.enabled_subdomain" value="1">checked="checked"</eq>/>是</label>
+                <div class="help-block">启用二级域名需要您的服务器支持，具体配置方便请查看安装包中docs目录中的二级域名配置文档</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">二级域名后缀:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="subdomain_suffix" value="{$setting.subdomain_suffix}"/>
+                <div class="help-block"> 例如:用户的二级域名将是"test.mall.example.com", 则您只需要在此填写"mall.example.com"</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">保留域名:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="subdomain_reserved" value="{$setting.subdomain_reserved}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">长度限制:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="subdomain_length" value="{$setting.subdomain_length}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="Public:footer"/>

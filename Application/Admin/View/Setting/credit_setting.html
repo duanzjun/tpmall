@@ -1,0 +1,29 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+        <a class="btn btn-default" href="{:U('setting/index')}">系统设置</a>
+        <a class="btn btn-default" href="{:U('setting/base_information')}">基本信息</a>
+        <a class="btn btn-default" href="{:U('setting/email_setting')}">Email</a>
+        <a class="btn btn-default" href="{:U('setting/captcha_setting')}">验证码</a>
+        <a class="btn btn-default" href="{:U('setting/store_setting')}">开店设置</a>
+        <a class="btn btn-primary" href="javascript:;">信用评价</a>
+        <a class="btn btn-default" href="{:U('setting/subdomain_setting')}">二级域名</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="" method="post">
+        <div class="form-group">
+            <label class="col-md-2 control-label">升一级所需信用积分:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="upgrade_required" value="{$setting.upgrade_required}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="Public:footer"/>

@@ -1,0 +1,71 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+        <a class="btn btn-default" href="{:U('setting/index')}">系统设置</a>
+        <a class="btn btn-default" href="{:U('setting/base_information')}">基本信息</a>
+        <a class="btn btn-primary" href="javascript:;">Email</a>
+        <a class="btn btn-default" href="{:U('setting/captcha_setting')}">验证码</a>
+        <a class="btn btn-default" href="{:U('setting/store_setting')}">开店设置</a>
+        <a class="btn btn-default" href="{:U('setting/credit_setting')}">信用评价</a>
+        <a class="btn btn-default" href="{:U('setting/subdomain_setting')}">二级域名</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="" method="post">
+        <div class="form-group">
+            <label class="col-md-2 control-label">邮件发送方式:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="email_type" value="1" <eq name="setting.email_type" value="1">checked="checked"</eq>/>采用其他的SMTP服务</label>
+                <label class="radio-inline"><input type="radio" name="email_type" value="0" <eq name="setting.email_type" value="0">checked="checked"</eq>/>采用服务器内置的Mail服务</label>
+                <div class="help-block">如果您选择服务器内置方式则无须填写以下选项</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">SMTP 服务器:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="email_host" value="{$setting.email_host}"/>
+                <div class="help-block">设置 SMTP 服务器的地址</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">SMTP 端口:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="email_port" value="{$setting.email_port}"/>
+                <div class="help-block">设置 SMTP 服务器的端口，默认为 25</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">发信人邮件地址:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="email_addr" value="{$setting.email_addr}"/>
+                <div class="help-block">如果 SMTP 服务器要求身份验证，必须为本服务器的邮件地址</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">SMTP 身份验证用户名:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="email_id" value="{$setting.email_id}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">SMTP 身份验证密码:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="email_pass" value="{$setting.email_pass}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">测试邮件地址:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="send_test_email" value="{$setting.send_test_email}"/>
+                <button class="btn btn-default" type="button">测试</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="Public:footer"/>

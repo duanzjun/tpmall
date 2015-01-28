@@ -1,0 +1,30 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+        <a class="btn btn-default" href="{:U('setting/index')}">系统设置</a>
+        <a class="btn btn-default" href="{:U('setting/base_information')}">基本信息</a>
+        <a class="btn btn-default" href="{:U('setting/email_setting')}">Email</a>
+        <a class="btn btn-default" href="{:U('setting/captcha_setting')}">验证码</a>
+        <a class="btn btn-primary" href="javascript:;">开店设置</a>
+        <a class="btn btn-default" href="{:U('setting/credit_setting')}">信用评价</a>
+        <a class="btn btn-default" href="{:U('setting/subdomain_setting')}">二级域名</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="" method="post">
+        <div class="form-group">
+            <label class="col-md-2 control-label">网站状态:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="store_allow" value="0" <eq name="setting.store_allow" value="0">checked="checked"</eq>/>关闭</label>
+                <label class="radio-inline"><input type="radio" name="store_allow" value="1" <eq name="setting.store_allow" value="1">checked="checked"</eq>/>开启</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="Public:footer"/>

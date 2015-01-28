@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>商城管理后台</title>
+<link rel="stylesheet" href="__PUBLIC__/css/bootstrap.css">
+<link rel="stylesheet" href="__PUBLIC__/css/ui-dialog.css">
+<link rel="stylesheet" href="__PUBLIC__/css/admin.css">
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/js/dialog-min.js"></script>
+<script src="__PUBLIC__/js/jquery.validate.js"></script>
+<script src="__PUBLIC__/js/jquery.form.js"></script>
+</head>
+<body>
+<div class="navbar navbar-inverse" style="border-radius:0" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">中国勘测联合网 <small>v1.0 Bate</small></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav" id="nav">
+          </ul>
+          <ul class="nav navbar-nav navbar-right handle-menu">
+            <li><a class="glyphicon glyphicon-user" href="javascript:;" title="管理员">admin</a></li>
+            <li><a class="glyphicon glyphicon-refresh" id="iframe_refresh" href="javascript:;" title="刷新"></a>
+            <li><a class="glyphicon glyphicon-transfer" href="javascript:;" title="更新缓存"></a></li>
+            <li><a class="glyphicon glyphicon-list" href="javascript:;" title="网站导航"></a></li>
+            <li><a class="glyphicon glyphicon-log-out" href="javascript:;" href="{:U('public/logout')}" title="退出"></a></li>
+          </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div id="leftMenus" class="col-sidebar">
+            <div id="submenu" class="list-group">
+                <h5><strong>管理员设置</strong><span class="glyphicon glyphicon-chevron-down"></span></h5>
+
+                <a class="list-group-item" href="javascript:;">欢迎页面</a>
+                <a class="list-group-item" href="javascript:;">网站设置</a>
+                <a class="list-group-item" href="javascript:;">会员管理</a>
+                <a class="list-group-item" href="javascript:;">店铺管理</a>
+                <a class="list-group-item" href="javascript:;">商品管理</a>
+                <a class="list-group-item" href="javascript:;">订单管理</a>
+            </div>
+            <div id="historymenu" class="list-group">
+                <h5><strong>操作历史</strong><span class="glyphicon glyphicon-chevron-down"></span></h5>
+            </div>
+        </div>
+        <div class="col-main">
+            <iframe id="rframe" name="rframe" src="{:U('index/welcome')}" frameborder="0" scrolling="auto" style="height:95%;width:100%;"></iframe>
+        </div>
+    </div>
+</div>
+<script>
+var menu={$menus_json};
+var set_h = function(){
+    var heights = document.documentElement.clientHeight-15;
+    $(".col-main").height(heights);
+    var openClose = $(".col-main").height();
+    $('body').css('overflow','hidden');
+}
+$(window).resize(function(){
+    set_h();
+});
+set_h();
+</script>
+<script src="__PUBLIC__/js/index.js"></script>
+</body>
+</html>

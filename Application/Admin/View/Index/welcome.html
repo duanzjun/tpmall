@@ -1,0 +1,44 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">您好，admin【超级管理员】。您上次登录的时间是 2015-01-15 18:13，IP是 127.0.0.1</div>
+</div>
+<div class="container-fluid">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">一周动态</div>
+          <ul class="panel-body list-unstyled">
+            <li>新增会员数：{$news_in_a_week.new_user_qty|default=0}</li>
+            <li>新增店铺数/申请数：{$news_in_a_week.new_store_qty|default=0}/{$news_in_a_week.new_apply_qty|default=0}</li>
+            <li>新增商品数：{$news_in_a_week.new_goods_qty|default=0}</li>
+            <li>新增订单数：{$news_in_a_week.new_order_qty|default=0}</li>
+          </ul>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">统计信息</div>
+          <ul class="panel-body list-unstyled">
+            <li>会员总数：{$stats.user_qty|default=0}</li>
+            <li>店铺总数/申请总数：{$stats.store_qty|default=0}/{$stats.apply_qty|default=0}</li>
+            <li>商品总数：{$stats.goods_qty|default=0}</li>
+            <li>订单总数：{$stats.order_qty|default=0}</li>
+            <li>订单总金额：￥{$stats.order_amount}</li>
+          </ul>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">系统信息</h3>
+          </div>
+          <ul class="panel-body list-unstyled">
+              <li>操作系统：{$sys_info.os}</li>
+              <li>主机地址：{$sys_info.pc}:{$sys_info.port}</li>
+              <li>服务器软件：{$sys_info.server_software}</li>
+              <li>当前时间：{$sys_info.time}</li>
+              <li>MySQL版本：{$sys_info.mysql_version}</li>
+          </ul>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

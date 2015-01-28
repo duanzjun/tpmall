@@ -1,0 +1,186 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+        <a class="btn btn-primary" href="#">系统设置</a>
+        <a class="btn btn-default" href="{:U('setting/base_information')}">基本信息</a>
+        <a class="btn btn-default" href="{:U('setting/email_setting')}">Email</a>
+        <a class="btn btn-default" href="{:U('setting/captcha_setting')}">验证码</a>
+        <a class="btn btn-default" href="{:U('setting/store_setting')}">开店设置</a>
+        <a class="btn btn-default" href="{:U('setting/credit_setting')}">信用评价</a>
+        <a class="btn btn-default" href="{:U('setting/subdomain_setting')}">二级域名</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="" method="post">
+        <div class="form-group">
+            <label class="col-md-2 control-label">时区设置:</label>
+            <div class="col-md-10">
+                <select name="time_zone" class="form-control w-auto">
+                    <volist name="time_zone" id="time">
+                    <option value="{$key}" <eq name="key" value="$setting['time_zone']">selected="selected"</eq>>{$time}</option>
+                    </volist>
+                </select>
+                <span class="help-block">设置系统使用的时区，中国为+8</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">时间格式（简单）:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="time_format_simple" value="{$setting.time_format_simple}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">时间格式（完整）:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="time_format_complete" value="{$setting.time_format_complete}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">金额格式:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="price_format" value="{$setting.price_format}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">默认商品图片:</label>
+            <div class="col-md-10">
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-picture"></i>
+                    <span>上传图片</span>
+                    <input type="file" id="default_goods_image" tabIndex="-1">
+                </span>
+                <input type="hidden" name="default_goods_image" value="{$setting.default_goods_image}" />
+                <span class="setting-logo"><img src="{$setting.default_goods_image}"/></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">默认店铺标志:</label>
+            <div class="col-md-10">
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-picture"></i>
+                        <span>上传图片</span>
+                        <input type="file" id="default_store_logo" tabIndex="-1">
+                </span>
+                <input type="hidden" name="default_store_logo" value="{$setting.default_store_logo}"/>
+                <span class="setting-logo"><img src="{$setting.default_store_logo}"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">默认会员头像:</label>
+            <div class="col-md-10">
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-picture"></i>
+                        <span>上传图片</span>
+                        <input type="file" id="default_user_portrait" tabIndex="-1">
+                </span>
+                <input type="hidden" name="default_user_portrait" value="{$setting.default_user_portrait}"/>
+                <span class="setting-logo"><img src="{$setting.default_user_portrait}"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">流量统计代码:</label>
+            <div class="col-md-10">
+                <textarea class="form-control w300" name="statistics_code">{$setting.statistics_code}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">允许游客咨询:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="guest_comment" value="0" <eq name="setting.guest_comment" value="0">checked="checked"</eq>/>否</label>
+                <label class="radio-inline"><input type="radio" name="guest_comment" value="1" <eq name="setting.guest_comment" value="1">checked="checked"</eq>/>是</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">启用伪静态:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="rewrite_enabled" value="0" <eq name="setting.rewrite_enabled" value="0" >checked="checked"</eq>/>否</label>
+                <label class="radio-inline"><input type="radio" name="rewrite_enabled" value="1" <eq name="setting.rewrite_enabled" value="1" >checked="checked"</eq>/>是</label>
+                <div class="help-block">启用伪静态将有助于SEO，及增加URL的可读性</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">启用Sitemap:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="sitemap_enabled" value="0" <eq name="setting.sitemap_enabled" value="0" >checked="checked"</eq>/>否</label>
+                <label class="radio-inline"><input type="radio" name="sitemap_enabled" value="1" <eq name="setting.sitemap_enabled" value="1" >checked="checked"</eq>/>是</label>
+                <div class="help-block"> 采用sitemaps.提交地址为:您的网站访问地址/index.php?app=sitemap</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">更新周期(小时): </label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="sitemap_frequency" value="{$setting.sitemap_frequency}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Session服务:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="session_type" value="mysqli" <eq name="setting.session_type" value="mysqli">checked="checked"</eq>/>Mysqli</label>
+                <label class="radio-inline"><input type="radio" name="session_type" value="memcached" <eq name="setting.session_type" value="memcached">checked="checked"</eq>/>Memcached</label>
+                <div class="help-block"> Session服务类型，如果选择Memcached，则您的系统需安装配置好Memcached服务，且您的PHP环境需要支持Memcahce扩展</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">缓存服务:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="cache_server" value="file" <eq name="setting.cache_server" value="file">checked="checked"</eq>/>File</label>
+                <label class="radio-inline"><input type="radio" name="cache_server" value="memcache" <eq name="setting.cache_server" value="memcache">checked="checked"</eq>/>Memcache</label>
+                <div class="help-block"> 缓存服务类型，如果选择Memcached，则您的系统需安装配置好Memcached服务，且您的PHP环境需要支持Memcahce扩展</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">商品雷达:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="enable_radar" value="0" <eq name="setting.enable_radar" value="0">checked="checked"</eq>/>否</label>
+                <label class="radio-inline"><input type="radio" name="enable_radar" value="1" <eq name="setting.enable_radar" value="1">checked="checked"</eq>/>是</label>
+                <div class="help-block">商品雷达，电商网络情报之窗</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__PUBLIC__/js/jquery.ui.widget.js"></script>
+<script src="__PUBLIC__/js/jquery.fileupload.js"></script>
+<script>
+$(function(){
+   $('#default_goods_image').fileupload({
+        url: "{:U('setting/ajaxupload',array('name'=>'default_goods_image'))}",
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('input[name="default_goods_image"]').val(file.url)
+                    .next('.setting-logo').html('<img src="'+file.url+'?t='+(Math.random())+'"/>');
+            });
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+   $('#default_store_logo').fileupload({
+        url: "{:U('setting/ajaxupload',array('name'=>'default_store_logo'))}",
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('input[name="default_store_logo"]').val(file.url)
+                    .next('.setting-logo').html('<img src="'+file.url+'?t='+(Math.random())+'"/>');
+            });
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+   $('#default_user_portrait').fileupload({
+        url: "{:U('setting/ajaxupload',array('name'=>'default_user_portrait'))}",
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('input[name="default_user_portrait"]').val(file.url)
+                    .next('.setting-logo').html('<img src="'+file.url+'?t='+(Math.random())+'"/>');
+            });
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>
+<include file="Public:footer"/>

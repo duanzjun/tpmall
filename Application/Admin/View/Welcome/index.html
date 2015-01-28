@@ -1,0 +1,46 @@
+<include file="Public:header"/>
+<div class="navbar navbar-inverse" style="border-radius:0" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">中国勘测联合网 <small>v1.0 Bate</small></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="javascript:;">控制台</a></li>
+            <li><a href="javascript:;">设置</a></li>
+            <li><a href="javascript:;">商品</a></li>
+            <li><a href="javascript:;">店铺</a></li>
+            <li><a href="javascript:;">会员</a></li>
+            <li><a href="javascript:;">交易</a></li>
+            <li><a href="javascript:;">网站</a></li>
+            <li><a href="javascript:;">扩展</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right handle-menu">
+            <li><a class="glyphicon glyphicon-user" href="javascript:;" title="管理员">admin</a></li>
+            <li><a class="glyphicon glyphicon-refresh" href="javascript:;" title="刷新"></a>
+            <li><a class="glyphicon glyphicon-transfer" href="javascript:;" title="更新缓存"></a></li>
+            <li><a class="glyphicon glyphicon-list" href="javascript:;" title="网站导航"></a></li>
+            <li><a class="glyphicon glyphicon-log-out" href="javascript:;" href="{:U('public/logout')}" title="退出"></a></li>
+          </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sidebar">
+            <div class="list-group">
+                <a class="list-group-item" href="javascript:;">欢迎页面</a>
+                <a class="list-group-item" href="javascript:;">网站设置</a>
+                <a class="list-group-item" href="javascript:;">会员管理</a>
+                <a class="list-group-item" href="javascript:;">店铺管理</a>
+                <a class="list-group-item" href="javascript:;">商品管理</a>
+                <a class="list-group-item" href="javascript:;">订单管理</a>
+            </div>
+        </div>
+        <div class="col-main">
+            <iframe id="rframe" name="rframe" src="{:U('welcome')}" frameborder="0" scrolling="auto" style="height:95%;width:100%;"></iframe>
+        </div>
+    </div>
+</div>
+</body>
+</html>
