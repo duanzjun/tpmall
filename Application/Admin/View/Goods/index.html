@@ -32,7 +32,7 @@
     <table class="table table-hover">
         <tr>
             <th><input type="checkbox" onclick="$('input[class=\'checkitem\']').prop('checked',this.checked)" /></th>
-            <th>商品名</th>
+            <th><span fieldname="goods_name" ectype="order_by">商品名</span></th>
             <th>店铺名</th>
             <th>品牌</th>
             <th>分类名</th>
@@ -44,7 +44,8 @@
         <volist name="lists" id="lst">
         <tr>
             <td><input class="checkitem" type="checkbox" value="{$lst.goods_id}" /></td>
-            <td>{$lst.goods_name}</td>
+            <td><span title="可编辑" class="editable glyphicon" required="1" fieldid="{$lst.goods_id}" fieldname="goods_name" ectype="inline_edit" style="display:inline;">{$lst.goods_name}</span>
+            </td>
             <td>{$lst.store_name}</td>
             <td>{$lst.brand}</td>
             <td>{$lst.cate_name}</td>
@@ -92,4 +93,5 @@ $(function(){
     });
 });
 </script>
+<script src="__PUBLIC__/js/inline_edit.js"></script>
 <include file="Public:footer"/>

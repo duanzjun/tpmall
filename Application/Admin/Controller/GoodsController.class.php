@@ -15,6 +15,17 @@ class GoodsController extends AdminController
             $map['g.cate_id_'.$level]=$cid;
         }
 
+        //更新排序
+        if($sort=I('get.sort','','trim') && $order=I('get.order','','trim')){
+            if(!in_array($order,array('asc','DESC'))){
+                $sort='g.goods_id';
+                $order='DESC';
+            }
+        }else{
+            $sort='g.goods_id';
+            $order='DESC';
+        }
+
         //分类
         $categories=M('Gcategory')->where('store_id=0 AND if_show=1 AND parent_id=0')->order('sort_order')->select();
         $this->assign('categories',$categories);
@@ -25,7 +36,7 @@ class GoodsController extends AdminController
         $join=' LEFT JOIN '.__STORE__.' s ON g.store_id = s.store_id'.
               ' LEFT JOIN '.__GOODS_STATISTICS__.' gs ON g.goods_id = gs.goods_id';
         $model=M('Goods g');
-        $lists=$model->field($field)->join($join)->where($map)->order('g.goods_id DESC')->page(I('get.p',0,'intval').',10')->select();
+        $lists=$model->field($field)->join($join)->where($map)->order($sort.' '.$order)->page(I('get.p',0,'intval').',10')->select();
 
         //分页
         $count=$model->join($join)->where($map)->count();

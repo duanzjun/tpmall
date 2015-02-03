@@ -35,13 +35,6 @@
         <div id="leftMenus" class="col-sidebar">
             <div id="submenu" class="list-group">
                 <h5><strong>管理员设置</strong><span class="glyphicon glyphicon-chevron-down"></span></h5>
-
-                <a class="list-group-item" href="javascript:;">欢迎页面</a>
-                <a class="list-group-item" href="javascript:;">网站设置</a>
-                <a class="list-group-item" href="javascript:;">会员管理</a>
-                <a class="list-group-item" href="javascript:;">店铺管理</a>
-                <a class="list-group-item" href="javascript:;">商品管理</a>
-                <a class="list-group-item" href="javascript:;">订单管理</a>
             </div>
             <div id="historymenu" class="list-group">
                 <h5><strong>操作历史</strong><span class="glyphicon glyphicon-chevron-down"></span></h5>
@@ -53,6 +46,19 @@
     </div>
 </div>
 <script>
+$(function(){
+    //侧边菜单收缩
+    $('#submenu h5,#historymenu h5').on('click',function(){
+        var that=$(this);
+        var spn=that.children('span');
+        $(this).nextAll('.list-group-item').slideToggle('fast',function(){
+            if(that.nextAll('.list-group-item').is(':hidden'))
+                spn.attr('class','glyphicon glyphicon-chevron-right');
+            else
+                spn.attr('class','glyphicon glyphicon-chevron-down');
+        });
+    })
+});
 var menu={$menus_json};
 var set_h = function(){
     var heights = document.documentElement.clientHeight-15;

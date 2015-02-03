@@ -38,3 +38,4 @@ left:0;display:block;z-index:1000;overflow-x:hidden;overflow-y:auto;border-right
 .setting-logo img{max-width:60px;max-height:60px}
 #info-form .form-control{display: inline-block;}
 #info-form .help-block{display:inline-block;}
+.editable:after{content: "\270f";}

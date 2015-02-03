@@ -6,15 +6,15 @@ $(function(){
     /* 初始化标签页 */
     initHistory();
     initTopTab();
-    /* 设置工作区 */
-    // setWorkspace();
-    /* resize时重新设置工作区 */
-    // $(window).resize(setWorkspace);
 });
 function initTopTab(){
     $.each(menu, function(k, v){
         var item = $('<li><a href="javascript:;" id="tab_' + k + '">' + v.text + '</a></li>');
-        item.children('a').click(function(){var tabName = this.id.substr(4);if(tabName == currTab){return;}switchTab(tabName);openItem();});
+        item.children('a').click(function(){
+            var tabName = this.id.substr(4);
+            if(tabName == currTab) return;
+            switchTab(tabName);openItem();
+        });
         $('#nav').append(item);
     });
 
@@ -25,6 +25,7 @@ function initTopTab(){
     $('#iframe_refresh').click(function(){
         $('#rframe').get(0).contentWindow.location.reload();
     });
+    //清除缓存
     // $('#clear_cache').click(function(){
     //     var url = 'index.php?act=clear_cache';
     //     $.getJSON(url, {}, function(data){
@@ -52,7 +53,7 @@ function readHistory(){
 function saveHistory(){
     var h = '';
     $('#historymenu > a').each(function(){
-        h += $(this).find('a:first').attr('id') + ',';
+        h += $(this).prop('id') + ',';
     });
     var v = h.substr(0, (h.length - 1));
     $.setCookie('actionHistory', v);
@@ -61,27 +62,27 @@ function addHistoryItem(tab, item){
     var id = '#' + tab + '-' + item;
     if($(id).length == 1){
         /* 若存在提到最前 */
-        var cln = $(id).parent().clone(true);
-        $(id).parent().remove();
-        $('#historymenu').after(cln);
+        var cln = $(id).clone(true);
+        $(id).remove();
+        $('#historymenu a:first').before(cln);
     }
     else{
         /* 不存在，则加入 */
-        if(typeof(menu[tab]['children'][item]) == 'undefined'){
+        if(typeof(menu[tab]['children'][item])=='undefined'){
             return;
         }
         if($('#historymenu > a').length == maxHistoryLength){
             $('#historymenu > a:last').remove();
         }
-        var lnk = $('<a href="javascript:;" id="' + tab + '-' + item + '">' + menu[tab]['children'][item]['text'] + '</a>').css({"color":"#98a9c2"});
-        var close = $('<a href="javascript:;" class="close"><img src="templates/style/images/close.gif" / ></a>');
+        var lnk = $('<a href="javascript:;" class="list-group-item" id="' + tab + '-' + item + '">' + menu[tab]['children'][item]['text'] + '</a>').css({"color":"#98a9c2"});
+        // var close = $('<a href="javascript:;" class="close"><img src="templates/style/images/close.gif" / ></a>');
         lnk.click(function(){
             openItem(item, tab);
         });
-        close.click(function(){
-            $(this).parent().remove();
-        });
-        // $('<dd></dd>').append(lnk).append(close).insertAfter($('#historymenu h5'));
+        // close.click(function(){
+        //     $(this).parent().remove();
+        // });
+        $(lnk).appendTo($('#historymenu'));
     }
 }
 function switchTab(tabName){
@@ -90,11 +91,7 @@ function switchTab(tabName){
     loadSubmenu();
 }
 function pickTab(){
-    var id = '#tab_' + currTab;
-    $('#nav').find('a').each(function(){
-        $(this).removeClass('active');
-    });
-    $(id).addClass('active');
+    $('#tab_' + currTab).parent('li').addClass('active').siblings().removeClass('active');
 }
 function loadSubmenu(){
     var m = menu[currTab];
@@ -115,11 +112,11 @@ function openItem(itemIndex, tab){
     {
         var itemIndex = menu[currTab]['default'];
     }
-    var id      = '#item_' + itemIndex;
+    var id='#item_'+itemIndex;
     if(tab){
-        var parent = tab;
+        var parent=tab;
     }else{
-        var parent  = $(id).attr('parent');
+        var parent=$(id).attr('parent');
     }
     /* 若不在当前选项卡内 */
     if(parent != currTab){
@@ -134,34 +131,26 @@ function openItem(itemIndex, tab){
 
     /* 更新iframe的内容 */
     $('#rframe').show();
-    $('#rframe').attr('src', $(id).attr('url'));
+    $('#rframe').prop('src', $(id).attr('url'));
 
     /* 将该操作加入到历史访问当中 */
     addHistoryItem(currTab, itemIndex);
 }
-/* 设置工作区 */
-function setWorkspace(){
-    var wWidth = $(window).width();
-    var wHeight = $(window).height();
-    $('#workspace').width(wWidth - $('#left').width() - parseInt($('#left').css('margin-right'))-17);
-    $('#workspace').height(wHeight - $('#head').height());
-}
-
 jQuery.extend({
-  getCookie : function(sName) {
-    var aCookie = document.cookie.split("; ");
-    for (var i=0; i < aCookie.length; i++){
-      var aCrumb = aCookie[i].split("=");
-      if (sName == aCrumb[0]) return decodeURIComponent(aCrumb[1]);
+    getCookie:function(sName) {
+        var aCookie = document.cookie.split("; ");
+        for (var i=0; i < aCookie.length; i++){
+            var aCrumb = aCookie[i].split("=");
+            if (sName == aCrumb[0]) return decodeURIComponent(aCrumb[1]);
+        }
+        return '';
+    },
+    setCookie:function(sName, sValue, sExpires) {
+        var sCookie = sName + "=" + encodeURIComponent(sValue);
+        if (sExpires != null) sCookie += "; expires=" + sExpires;
+        document.cookie = sCookie;
+    },
+    removeCookie:function(sName) {
+        document.cookie = sName + "=; expires=Fri, 31 Dec 1999 23:59:59 GMT;";
     }
-    return '';
-  },
-  setCookie : function(sName, sValue, sExpires) {
-    var sCookie = sName + "=" + encodeURIComponent(sValue);
-    if (sExpires != null) sCookie += "; expires=" + sExpires;
-    document.cookie = sCookie;
-  },
-  removeCookie : function(sName) {
-    document.cookie = sName + "=; expires=Fri, 31 Dec 1999 23:59:59 GMT;";
-  }
 });
