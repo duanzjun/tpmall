@@ -1,0 +1,92 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="" method="post">
+        <eq name="Think.ACTION_NAME" value="recommend">
+        <div class="form-group">
+            <label class="col-md-2 control-label">推荐到:</label>
+            <div class="col-md-10">
+                <volist name="recommends" id="rec">
+                <label class="radio-inline"><input type="radio" name="recom_id" value="{$rec.recom_id}"/>{$rec.recom_name}</label>
+                </volist>
+            </div>
+        </div>
+        <else />
+        <div class="form-group">
+            <label class="col-md-2 control-label">分类名：</label>
+            <div class="col-md-10 category">
+                <input type="hidden" name="cid"/>
+                <input type="hidden" name="cate_name" />
+                <select class="form-control w-auto" id="categories">
+                    <option value="">请选择...</option>
+                    <volist name="categories" id="cate">
+                    <option value="{$cate.cate_id}">{$cate.cate_name}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">品牌：</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="brand"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">禁售状态：</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="closed" value="-1" checked />保持不变</label>
+                <label class="radio-inline"><input type="radio" name="closed" value="1" />禁售</label>
+                <label class="radio-inline"><input type="radio" name="closed" value="0" />可售</label>
+            </div>
+        </div>
+        <div class="form-group hide" id="close_reason">
+            <label class="col-md-2 control-label">禁售原因：</label>
+            <div class="col-md-10">
+                <textarea class="form-control w200" name="close_reason"></textarea>
+            </div>
+        </div>
+<script>
+    //分类联动选择
+    $('.category').on('change','select',function(){
+        var that=$(this);
+        if(that.val()>0){
+            var str=cid="";
+            $('.category select').each(function(){
+                cid+=$(this).val()+",";
+                str+=$(this).find(':selected').text()+"\t";
+            });
+            $('input[name="cid"]').val(cid.substr(0,cid.length-1));
+            $('input[name="cate_name"]').val($.trim(str));
+        }else{
+            $('input[name="cid"]').val('');
+            $('input[name="cate_name"]').val('');
+        }
+        $.get("{:U('goods/get_cate')}&cid="+that.val()+'&_t='+(Math.random()),function(result){
+            that.nextAll().remove();
+            if(result!=''){
+                that.parent().append(result).find('select').addClass('form-control w-auto');
+            }
+        });
+    });
+    $('input[name="closed"]').on('click',function(){
+        if($(this).val()==='1'){
+            $('#close_reason').removeClass('hide');
+        }else{
+            $('#close_reason').addClass('hide');
+        }
+    });
+</script>
+        </eq>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset" onclick="history.go(-1);">返回</button>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="Public:footer"/>

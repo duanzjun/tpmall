@@ -63,6 +63,80 @@ class GoodsController extends AdminController
         echo $str_html.'</select>';
     }
 
+    public function edit()
+    {
+        if(!IS_POST){
+            $categories=M('Gcategory')->where('store_id=0 AND if_show=1 AND parent_id=0')->order('sort_order')->select();
+            $this->assign('categories',$categories);
+            $this->display('goods_batch');
+        }else{
+            $id=I('get.id');
+            if(!$id){
+                $this->error('ID不能为空');
+            }
+            $ids=explode(',',$id);
+            $data=array();
+            $cid=I('post.cid');
+            if(!empty($cid)){
+                $cid=explode(',',$cid);
+                foreach($cid as $_k=>$_c){
+                    $data['cate_id_'.($_k+1)]=$_c;
+                }
+                $data['cate_id']=end($cid);
+                $data['cate_name']=I('post.cate_name','','trim');
+            }
+            if(I('post.brand','','trim')) $data['brand']=I('post.brand','','trim');
+            if(I('post.closed')>=0){
+                $data['closed']=I('post.closed') ? 1 : 0;
+                if(I('post.close_reason')){
+                    $data['close_reason']=I('post.close_reason','','trim');
+                }
+            }
+            if(empty($data)){
+                $this->error('没有修改设置');
+            }
+            M('Goods')->where(array('goods_id'=>array('in',$ids)))->save($data);
+            $page=I('get.ret_page',1,'intval')>1 ? '&p='.I('get.ret_page') : '';
+            $this->success('批量编辑成功','index.php?m=admin&c=goods'.$page);
+        }
+    }
+
+    public function recommend()
+    {
+        if(!IS_POST)
+        {
+            //取得推荐类型
+            $recommends=M('Recommend')->where('store_id=0')->select();
+            if(empty($recommends)){
+                $this->error('没有推荐数据');
+            }
+            $this->assign('recommends',$recommends);
+            $this->display('goods_batch');
+        }else{
+            $id=I('get.id');
+            if(empty($id)){
+                $this->error('ID不能为空');
+            }
+            $recom_id=I('post.recom_id') ? I('recom_id',0,'intval') : 0;
+            if(!recom_id){
+                $this->error('请选择推荐项');
+            }
+            $ids=explode(',',$id);
+            $reco_mod=M('Recommended_goods');
+            $reco_mod->where(array('goods_id'=>array('in',$ids)))->delete();
+            $data=array();
+            foreach($ids as $id){
+                $data[]=array(
+                    'recom_id'=>$recom_id,
+                    'goods_id'=>$id
+                );
+            }
+            $reco_mod->addAll($data);
+            $page=I('get.ret_page',1,'intval')>1 ? '&p='.I('get.ret_page') : '';
+            $this->success('推荐成功','index.php?m=admin&c=goods'.$page);
+        }
+    }
+
     //修改列字段
     public function ajax_col()
     {

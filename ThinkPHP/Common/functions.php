@@ -583,6 +583,7 @@ function D($name='',$layer='') {
         return $_model[$name.$layer];
     $class          =   parse_res_name($name,$layer);
     if(class_exists($class)) {
+        fb($class);
         $model      =   new $class(basename($name));
     }elseif(false === strpos($name,'/')){
         // 自动加载公共模块下面的模型

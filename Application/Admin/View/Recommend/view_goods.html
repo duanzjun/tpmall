@@ -1,8 +1,7 @@
 <include file="Public:header"/>
 <div class="container-fluid">
     <div class="row right-top">
-        <a class="btn btn-primary" href="#">所有商品</a>
-        <a class="btn btn-default" href="{:U('goods/index',array('closed'=>1))}">禁售商品</a>
+        <a class="btn btn-default" href="{:U('recommend/index')}">推荐类型</a>
     </div>
     <div class="filter">
         <form method="get" action="__ACTION__">
@@ -32,33 +31,29 @@
     <table class="table table-hover">
         <tr>
             <th><input type="checkbox" onclick="$('input[class=\'checkitem\']').prop('checked',this.checked)" /></th>
-            <th><span fieldname="goods_name" ectype="order_by">商品名</span></th>
+            <th>商品名</th>
+            <th>排序</th>
             <th>店铺名</th>
             <th>品牌</th>
             <th>分类名</th>
             <th class="text-center">上架</th>
             <th class="text-center">禁售</th>
             <th class="text-center">浏览数</th>
-            <th class="text-right">操作</th>
         </tr>
         <volist name="lists" id="lst">
         <tr>
             <td><input class="checkitem" type="checkbox" value="{$lst.goods_id}" /></td>
-            <td><span title="可编辑" class="editable glyphicon" required="1" fieldid="{$lst.goods_id}" fieldname="goods_name" ectype="inline_edit" style="display:inline;">{$lst.goods_name}</span>
-            </td>
+            <td>{$lst.goods_name}</td>
             <td>{$lst.store_name}</td>
             <td>{$lst.brand}</td>
             <td>{$lst.cate_name}</td>
             <td class="text-center"><span onclick="demo_toggle(this)" d-val="{$lst['if_show']?0:1}" d-uri="{:U('goods/ajax_col',array('id'=>$lst['goods_id'],'col'=>'if_show'))}"><i class="glyphicon glyphicon-<eq name='lst.if_show' value='1'>ok<else />remove</eq>"></i></span></td>
             <td class="text-center"><span onclick="demo_toggle(this)" d-val="{$lst['closed']?0:1}" d-uri="{:U('goods/ajax_col',array('id'=>$lst['goods_id'],'col'=>'closed'))}"><i class="glyphicon glyphicon-eye-<eq name='lst.closed' value='1'>close<else />open</eq>"></i></td>
             <td class="text-center">{$lst.views}</td>
-            <td class="text-right"><a href="#">查看</a></td>
         </tr>
         </volist>
         <tr><td colspan="3" id="batchAction">
-            <button class="btn btn-xs btn-primary batchButton" type="button" uri="{:U('goods/recommend',array('ret_page'=>I('p',1,'intval')))}">推荐</button>
-            <button class="btn btn-xs btn-primary batchButton" type="button" uri="{:U('goods/edit',array('ret_page'=>I('p',1,'intval')))}">编辑</button>
-            <button class="btn btn-xs btn-primary batchButton" type="button">删除</button>
+            <button class="btn btn-xs btn-primary batchButton" type="button" uri="{:U('goods/recommend',array('ret_page'=>I('p',1,'intval')))}">取消推荐</button>
         </td>
         <td class="text-right" colspan="6">{$page}</td>
         </tr>

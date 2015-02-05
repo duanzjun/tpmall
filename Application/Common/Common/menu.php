@@ -85,7 +85,7 @@ return array(
             ),
             'recommend_type' => array(
                 'text'  => L('recommend_type'),
-                'url'   => 'index.php?app=recommend'
+                'url'   => U('recommend/index')
             ),
         ),
     ),

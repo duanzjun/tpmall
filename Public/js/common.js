@@ -25,7 +25,7 @@ $(function(){
                 return false;
             },
             onclose:function(){
-                console.info(this);
+                // console.info(this);
             },
             cancelValue:'取消',
             cancel:function(){}
@@ -38,6 +38,20 @@ $(function(){
         });
         return false;
     });
+    if($("#batchAction").length==1){
+        $(".batchButton").on('click',function(){
+            if($('.checkitem:checked').length==0){
+                return false;
+            }
+            var items='';
+            $('.checkitem:checked').each(function(){
+                items+=this.value+',';
+            });
+            items=items.substr(0,(items.length-1));
+            var name=$(this).attr('name') ? $(this).attr('name')+'=' : 'id=';
+            window.location=$(this).attr('uri')+'&'+name+items;
+        });
+    }
 });
 function demo_toggle(obj)
 {
