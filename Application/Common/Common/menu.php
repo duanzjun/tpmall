@@ -16,12 +16,12 @@ return array(
             'user_manage' => array(
                 'text'  => L('user_manage'),
                 'parent'=> 'user',
-                'url'   => 'index.php?app=user',
+                'url'   => U('user/index'),
             ),
             'store_manage'  => array(
                 'text'  => L('store_manage'),
                 'parent'=> 'store',
-                'url'   => 'index.php?app=store',
+                'url'   => U('store/index'),
             ),
             'goods_manage'  => array(
                 'text'  => L('goods_manage'),
@@ -31,7 +31,7 @@ return array(
             'order_manage' => array(
                 'text'  => L('order_manage'),
                 'parent'=> 'trade',
-                'url'   => 'index.php?app=order'
+                'url'   => U('order/index')
             ),
         ),
     ),
@@ -46,23 +46,23 @@ return array(
             ),
             'region' => array(
                 'text'  => L('region'),
-                'url'   => 'index.php?app=region',
+                'url'   => U('region/index'),
             ),
             'payment' => array(
                 'text'  => L('payment'),
-                'url'   => 'index.php?app=payment',
+                'url'   => U('payment/index'),
             ),
             'theme' => array(
                 'text'  => L('theme'),
-                'url'   => 'index.php?app=theme',
+                'url'   => U('theme/index'),
             ),
             'template' => array(
                 'text'  => L('template'),
-                'url'   => 'index.php?app=template',
+                'url'   => U('template/index'),
             ),
             'mailtemplate' => array(
                 'text'  => L('noticetemplate'),
-                'url'   => 'index.php?app=mailtemplate',
+                'url'   => U('mailtemplate/index'),
             ),
         ),
     ),
@@ -73,11 +73,11 @@ return array(
         'children'  => array(
             'gcategory' => array(
                 'text'  => L('gcategory'),
-                'url'   => 'index.php?app=gcategory',
+                'url'   => U('gcategory/index'),
             ),
             'brand' => array(
                 'text'  => L('brand'),
-                'url'   => 'index.php?app=brand',
+                'url'   => U('brand/index'),
             ),
             'goods_manage' => array(
                 'text'  => L('goods_manage'),
@@ -96,15 +96,15 @@ return array(
         'children'  => array(
             'sgrade' => array(
                 'text'  => L('sgrade'),
-                'url'   => 'index.php?app=sgrade',
+                'url'   => U('sgrade/index'),
             ),
             'scategory' => array(
                 'text'  => L('scategory'),
-                'url'   => 'index.php?app=scategory',
+                'url'   => U('scategory/index'),
             ),
             'store_manage'  => array(
                 'text'  => L('store_manage'),
-                'url'   => 'index.php?app=store',
+                'url'   => U('store/index'),
             ),
         ),
     ),
@@ -115,15 +115,15 @@ return array(
         'children'  => array(
             'user_manage' => array(
                 'text'  => L('user_manage'),
-                'url'   => 'index.php?app=user',
+                'url'   => U('user/index'),
             ),
             'admin_manage' => array(
                 'text' => L('admin_manage'),
-                 'url'   => 'index.php?app=admin',
+                 'url'   => U('admin/index'),
              ),
              'user_notice' => array(
                 'text' => L('user_notice'),
-                'url'  => 'index.php?app=notice',
+                'url'  => U('notice/index'),
              ),
         ),
     ),
@@ -134,7 +134,7 @@ return array(
         'children'  => array(
             'order_manage' => array(
                 'text'  => L('order_manage'),
-                'url'   => 'index.php?app=order'
+                'url'   => U('order/index')
             ),
         ),
     ),
@@ -145,31 +145,31 @@ return array(
         'children'  => array(
             'acategory' => array(
                 'text'  => L('acategory'),
-                'url'   => 'index.php?app=acategory',
+                'url'   => U('acategory/index'),
             ),
             'article' => array(
                 'text'  => L('article'),
-                'url'   => 'index.php?app=article',
+                'url'   => U('article/index'),
             ),
             'partner' => array(
                 'text'  => L('partner'),
-                'url'   => 'index.php?app=partner',
+                'url'   => U('partner/index'),
             ),
             'navigation' => array(
                 'text'  => L('navigation'),
-                'url'   => 'index.php?app=navigation',
+                'url'   => U('navigation/index'),
             ),
             'groupbuy' => array(
                 'text' => L('groupbuy'),
-                'url'  => 'index.php?app=groupbuy',
+                'url'  => U('groupbuy/index'),
             ),
             'consulting' => array(
                 'text'  => L('consulting'),
-                'url'   => 'index.php?app=consulting',
+                'url'   => U('consulting/index'),
             ),
             'share_link' => array(
                 'text'  => L('share_link'),
-                'url'   => 'index.php?app=share',
+                'url'   => U('share/index'),
             ),
         ),
     ),
@@ -180,15 +180,15 @@ return array(
         'children'  => array(
             'plugin' => array(
                 'text'  => L('plugin'),
-                'url'   => 'index.php?app=plugin',
+                'url'   => U('plugin/index'),
             ),
             'module' => array(
                 'text'  => L('module'),
-                'url'   => 'index.php?app=module&act=manage',
+                'url'   => U('module/manage'),
             ),
             'widget' => array(
                 'text'  => L('widget'),
-                'url'   => 'index.php?app=widget',
+                'url'   => U('widget/index'),
             ),
         ),
     ),

@@ -5,22 +5,13 @@
     </div>
     <div class="filter">
         <form method="get" action="__ACTION__">
-            <label>商品名：</label><input class="w100" type="text" name="goods_name" value="{$Think.get.goods_name}" />
-            <label>店铺名：</label><input class="w100" type="text" name="store_name" value="{$Think.get.store_name}" />
-            <label>品牌：</label><input class="w100" type="text" name="brand" value="{$Think.get.brand}" />
-            <span class="category">
-            <input type="hidden" name="cid" />
-            <lebal>分类名：</lebal><select id="categories">
-                <option value="">请选择...</option>
-                <volist name="categories" id="cate">
-                <option value="{$cate.cate_id}">{$cate.cate_name}</option>
+            <label>推荐类型：</label>
+            <select class="w-auto" name="id">
+                <volist name="fields" id="fd">
+                <option value="{$fd.recom_id}" <eq name="fd.recom_id" value="$_GET['id']">selected</eq>>{$fd.recom_name}</option>
                 </volist>
             </select>
-            </span>
             <button class="btn btn-xs btn-primary" type="submit">查询</button>
-            <eq name="filter" value="1">
-            <a class="btn btn-xs btn-primary" href="{:U('goods/index')}">撤消检索</a>
-            </eq>
         </form>
     </div>
 </div>
@@ -44,6 +35,8 @@
         <tr>
             <td><input class="checkitem" type="checkbox" value="{$lst.goods_id}" /></td>
             <td>{$lst.goods_name}</td>
+            <td><span title="可编辑" class="editable glyphicon" required="1" fieldid="{$lst.goods_id}" fieldname="sort_order" ectype="inline_edit" style="display:inline;">{$lst.sort_order}</span>
+            </td>
             <td>{$lst.store_name}</td>
             <td>{$lst.brand}</td>
             <td>{$lst.cate_name}</td>
@@ -53,40 +46,12 @@
         </tr>
         </volist>
         <tr><td colspan="3" id="batchAction">
-            <button class="btn btn-xs btn-primary batchButton" type="button" uri="{:U('goods/recommend',array('ret_page'=>I('p',1,'intval')))}">取消推荐</button>
+            <button class="btn btn-xs btn-primary batchButton" type="button" name="goods_id" uri="{:U('recommend/drop_goods_from',array('id'=>I('id'),'ret_page'=>I('p',1,'intval')))}">取消推荐</button>
         </td>
         <td class="text-right" colspan="6">{$page}</td>
         </tr>
     </table>
     </empty>
 </div>
-<script>
-$(function(){
-    if(1=={$Think.get.closed|default=0}){
-        $('.right-top a:first').removeClass('btn-primary').addClass('btn-default')
-            .prop('href','{:U('goods/index')}')
-            .next().removeClass('btn-default').addClass('btn-primary').prop('href','#');
-    }else{
-        $('.right-top a:first').removeClass('btn-default').addClass('btn-primary')
-            .prop('href','#')
-            .next().removeClass('btn-primary').addClass('btn-default').prop('href','{:U('goods/index',array('closed'=>1))}');
-    }
-    //分类联动选择
-    $('.category').on('change','select',function(){
-        var that=$(this);
-        if(that.val()>0){
-            $('input[name="cid"]').val(that.val()+"-"+$('.category select').length);
-        }else{
-            $('input[name="cid"]').val('');
-        }
-        $.get("{:U('goods/get_cate')}&cid="+that.val(),function(result){
-            that.nextAll().remove();
-            if(result!=''){
-                that.parent().append(result);
-            }
-        });
-    });
-});
-</script>
 <script src="__PUBLIC__/js/inline_edit.js"></script>
 <include file="Public:footer"/>

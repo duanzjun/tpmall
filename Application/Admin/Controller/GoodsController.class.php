@@ -35,11 +35,11 @@ class GoodsController extends AdminController
                's.store_name,gs.views';
         $join=' LEFT JOIN '.__STORE__.' s ON g.store_id = s.store_id'.
               ' LEFT JOIN '.__GOODS_STATISTICS__.' gs ON g.goods_id = gs.goods_id';
-        $model=M('Goods g');
-        $lists=$model->field($field)->join($join)->where($map)->order($sort.' '.$order)->page(I('get.p',0,'intval').',10')->select();
+        $goods_mod=M('Goods g');
+        $lists=$goods_mod->field($field)->join($join)->where($map)->order($sort.' '.$order)->page(I('get.p',0,'intval').',10')->select();
 
         //分页
-        $count=$model->join($join)->where($map)->count();
+        $count=$goods_mod->join($join)->where($map)->count();
         $Page=new \Think\Page($count,10);
         $show=$Page->show();
         $this->assign('filter',empty($map)?0:1);
@@ -132,8 +132,7 @@ class GoodsController extends AdminController
                 );
             }
             $reco_mod->addAll($data);
-            $page=I('get.ret_page',1,'intval')>1 ? '&p='.I('get.ret_page') : '';
-            $this->success('推荐成功','index.php?m=admin&c=goods'.$page);
+            $this->success('推荐成功',U('goods/index',array('p'=>I('get.ret_page',1,'intval')>1 ? I('get.ret_page') : '')));
         }
     }
 

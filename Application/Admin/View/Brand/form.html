@@ -1,0 +1,77 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+        <a class="btn btn-<notempty name='lists'>primary<else/>default</notempty>" href="{:U('brand/index')}">管理</a>
+        <a class="btn btn-<notempty name='list'>default<else/>primary</notempty>" href="{:U('brand/add')}">新增</a>
+        <a class="btn btn-<eq name='Think.get.wait_verify' value='1'>primary<else/>default</eq>" href="{:U('brand/index',array('wait_verify'=>1))}">待审核</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="__ACTION__" method="post">
+        <notempty name="list"><input type="hidden" name="brand_id" value="{$list.brand_id}" /></notempty>
+        <div class="form-group">
+            <label class="col-md-2 control-label">品牌名称:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="brand_name" value="{$list.brand_name}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">类别:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="tag" value="{$list.tag}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">图片标识:</label>
+            <div class="col-md-10">
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-picture"></i>
+                        <span>上传图片</span>
+                        <input type="file" id="brand_logo" tabIndex="-1">
+                </span>
+                <input type="hidden" name="brand_logo" value="{$list.brand_logo}"/>
+                <span class="list-logo"><img max-height="90" src="{$list.brand_logo}"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">是否推荐:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="recommended" value="0" <eq name="list.recommended" value="0">checked="checked"</eq>/>否</label>
+                <label class="radio-inline"><input type="radio" name="recommended" value="1" <eq name="list.recommended" value="1">checked="checked"</eq>/>是</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">排序：</label>
+            <div class="col-md-10">
+                <input class="form-control w100" type="text" name="sort_order" value="{$list.sort_order}" />
+                <div class="help-block">更新排序</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <input type="hidden" name="ret_page" value="{$Think.get.p}" />
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__PUBLIC__/js/jquery.ui.widget.js"></script>
+<script src="__PUBLIC__/js/jquery.fileupload.js"></script>
+<script>
+$(function(){
+   $('#brand_logo').fileupload({
+        url: "{:U('brand/ajaxupload',array('name'=>'brand_logo'))}",
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('input[name="brand_logo"]').val(file.url)
+                    .next('.list-logo').html('<img src="'+file.url+'?t='+(Math.random())+'"/>');
+            });
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>
+<include file="Public:footer"/>
