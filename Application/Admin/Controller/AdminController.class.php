@@ -42,4 +42,20 @@ class AdminController extends Controller
             }
         }
     }
+
+    //修改列字段
+    public function ajax_col($module='')
+    {
+        $col=I('col','','trim');
+        $val=I('val','','trim');
+        $id=I('id',0,'intval');
+        $module=$module ? $module : CONTROLLER_NAME;
+        $mod=D($module);
+
+        #todo 判断字段是否在修改字段列表
+
+        $pk=$mod->getPk();
+        $mod->where($pk.'='.$id)->setField($col,$val);
+        $this->ajaxReturn(array('status'=>true,'rel'=>array('state'=>$val)));
+    }
 }

@@ -1,3 +1,4 @@
+var selfurl=window.location.href;
 $(function(){
     $('.confirmurl').on('click',function(){
         var that=$(this);
@@ -52,7 +53,82 @@ $(function(){
             window.location=$(this).attr('uri')+'&'+name+items;
         });
     }
+
+    //tree
+    $('[ectype="flex"]').on('click',function(){
+        var status=$(this).attr('status');
+        var id=$(this).next('span').attr('fieldid');
+        var level=$(this).attr('level')==undefined ? 1 : parseInt($(this).attr('level'))+1;
+        if(status=='open'){
+            if($('.row'+id).length>0){
+                $('.row'+id).show();
+            }else{
+                var pr = $(this).parent('td').parent('tr');
+                $.get(selfurl+'&a=ajax_cate',{id:id,level:level},function(data){
+                    if(data){
+                        var str='';
+                        var res=eval('('+data+')');
+                        for(var i=0;i<res.length;i++){
+                            str+='<tr class="row'+id+'"><td><input class="checkitem" type="checkbox" value="'+res[i]['cate_id']+'" /></td>';
+                            str+='<td>'+res[i]['switchs_html']+'<span title="可编辑" class="editable glyphicon" required="1" fieldid="'+res[i]['cate_id']+'" fieldname="cate_name" ectype="inline_edit" style="display:inline;">'+res[i]['cate_name']+'</span></td>';
+                            str+='<td><span title="可编辑" class="editable glyphicon" required="1" fieldid="'+res[i]['cate_id']+'" fieldname="sort_order" ectype="inline_edit" style="display:inline;">'+res[i]['sort_order']+'</span></td>';
+                            str+='<td class="text-center">'+res[i]['if_show_html']+'</td>';
+                            str+='<td class="text-right">';
+                            str+=res[i]['edit']+' | '+res[i]['del']+' | '+res[i]['add_child'];
+                            str+='</td></tr>';
+                        }
+                        pr.after(str);
+                    }
+                    $('span[ectype="inline_edit"]').unbind('click');
+                    $.getScript(PUBLIC_URL+"/js/inline_edit.js");
+                });
+            }
+            $(this).prop('class','glyphicon glyphicon-minus').attr('status','close');
+        }
+        if(status=='close'){
+            $('.row'+id).hide();
+            $(this).prop('class','glyphicon glyphicon-plus').attr('status','open');
+        }
+    });
 });
+function secajax(obj)
+{
+    var status=$(obj).attr('status');
+    var id=$(obj).next('span').attr('fieldid');
+    var level=parseInt($(obj).attr('level'))+1;
+    if(status=='open'){
+        if($('.row'+id).length>0){
+            $('.row'+id).show();
+        }else{
+            var pr = $(obj).parent('td').parent('tr');
+            var hclass=pr.attr('class')+' row'+id;
+            $.get(selfurl+'&a=ajax_cate',{id:id,level:level},function(data){
+                if(data){
+                    var str='';
+                    var res=eval('('+data+')');
+                    for(var i=0;i<res.length;i++){
+                        str+='<tr class="'+hclass+'"><td><input class="checkitem" type="checkbox" value="'+res[i]['cate_id']+'" /></td>';
+                        str+='<td>'+res[i]['switchs_html']+'<span title="可编辑" class="editable glyphicon" required="1" fieldid="'+res[i]['cate_id']+'" fieldname="cate_name" ectype="inline_edit" style="display:inline;">'+res[i]['cate_name']+'</span></td>';
+                        str+='<td><span title="可编辑" class="editable glyphicon" required="1" fieldid="'+res[i]['cate_id']+'" fieldname="sort_order" ectype="inline_edit" style="display:inline;">'+res[i]['sort_order']+'</span></td>';
+                        str+='<td class="text-center">'+res[i]['if_show_html']+'</td>';
+                        str+='<td class="text-right">';
+                        str+=res[i]['edit']+' | '+res[i]['del']+' | '+res[i]['add_child'];
+                        str+='</td></tr>';
+                    }
+                    pr.after(str);
+                }
+                $('span[ectype="inline_edit"]').unbind('click');
+                $.getScript(PUBLIC_URL+"/js/inline_edit.js");
+            });
+        }
+        $(obj).prop('class','glyphicon glyphicon-minus').attr('status','close');
+    }
+    if(status=='close'){
+        $('.row'+id).hide();
+        $(obj).prop('class','glyphicon glyphicon-plus').attr('status','open');
+    }
+}
+
 function demo_toggle(obj)
 {
     var that = $(obj);
