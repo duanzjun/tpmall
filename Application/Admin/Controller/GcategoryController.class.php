@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 define('MAX_LAYER',4);
-class GcategoryCOntroller extends AdminController
+class GcategoryController extends AdminController
 {
     public function index()
     {

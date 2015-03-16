@@ -9,6 +9,10 @@ class AdminController extends Controller
 
     }
 
+    /**
+     * ajax图片上传
+     * array $options 修改图片路径配置信息
+    */
     public function ajaxUpload($options=array())
     {
         $_options=array(

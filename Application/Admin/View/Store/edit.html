@@ -1,0 +1,184 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="__ACTION__" method="post">
+        <notempty name="list"><input type="hidden" name="store_id" value="{$list.store_id}" /></notempty>
+        <div class="form-group">
+            <label class="col-md-2 control-label">店主姓名：</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="owner_name" value="{$list.owner_name}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">店主身份证号：</label>
+            <div class="col-md-10">
+                <input class="form-control w300" type="text" name="owner_card" value="{$list.owner_card}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">店铺名称：</label>
+            <div class="col-md-10">
+                <input class="form-control w300" id="store_name" type="text" name="store_name" value="{$list.store_name}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">所属分类：</label>
+            <div class="col-md-10">
+                <select class="form-control w-auto" name="cate_id">
+                    <option value="0">请选择...</option>
+                    {$html_tree}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">所在地：</label>
+            <div class="col-md-10" id="region">
+                <input type="hidden" name="region_id" value="{$list.region_id}" class="mls_id" />
+                <input type="hidden" name="region_name" value="{$list.region_name}" class="mls_names" />
+                <if condition="$list['store_id'] gt 0">
+                <span>{$list.region_name}</span>
+                <input type="button" value="编辑" class="edit_region" />
+                <select class="form-control w-auto" style="display:none">
+                    <option value="0">请选择...</option>
+                    <volist name="regions" id="reg">
+                    <option value="{$key}">{$reg}</option>
+                    </volist>
+                </select>
+                <else />
+                <select class="form-control w-auto">
+                    <option value="0">请选择...</option>
+                    <volist name="regions" id="reg">
+                    <option value="{$reg.region_id}">{$reg.region_name}</option>
+                    </volist>
+                </select>
+                </if>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">详细地址：</label>
+            <div class="col-md-10">
+                <input class="form-control w300" type="text" name="address" value="{$list.address}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">邮政编码：</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="zipcode" value="{$list.zipcode}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">联系电话：</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="tel" value="{$list.tel}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">所属等级：</label>
+            <div class="col-md-10">
+                <select class="form-control w-auto" name="sgrade">
+                    <volist name="sgrade" id="sg" key="k">
+                    <option value="{$k}" <eq name="list.sgrade" value="$k">selected</eq>>{$sg}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">有效期至：</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="end_time" value="{$list.end_time|date="Y-m-d",###}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">状态：</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="state" value="1" <eq name="list.state" value="1">checked="checked"</eq>/>开启</label>
+                <label class="radio-inline"><input type="radio" name="state" value="2" <eq name="list.state" value="2">checked="checked"</eq>/>关闭</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">认证：</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="checkbox" name="autonym" value="1" <eq name="list.cert_autonym" value="1">checked="checked"</eq>/>实名认证</label>
+                <label class="radio-inline"><input type="checkbox" name="material" value="1" <eq name="list.cert_material" value="1">checked="checked"</eq>/>实体店铺认证</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">推荐：</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="recommended" value="1" <eq name="list.recommended" value="1">checked="checked"</eq>/>是</label>
+                <label class="radio-inline"><input type="radio" name="recommended" value="0" <eq name="list.recommended" value="0">checked="checked"</eq>/>否</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">排序：</label>
+            <div class="col-md-10">
+                <input class="form-control w100" type="text" name="sort_order" value="{$list.sort_order|default=255}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset" onclick="history.go(-1);">返回</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__PUBLIC__/js/mlselection.js"></script>
+<script>
+$(function(){
+    regionInit("region");
+    $('#info-form').validate({
+        errorElement:'span',
+        errorClass:'help-block',
+        focusInvalid:false,
+        highlight:function(element){
+            $(element).closest('.form-group').addClass('has-error');
+        },
+        success:function(label){
+            label.closest('.form-group').removeClass('has-error');
+            label.remove();
+        },
+        errorPlacement:function(error,element){
+            element.parent('div').append(error);
+        },
+        rules : {
+            owner_name: {
+                required: true
+            },
+            store_name: {
+                required : true,
+                remote : {
+                    url  : 'index.php?m=admin&c=store&a=check_name',
+                    type : 'get',
+                    data : {
+                        store_name : function(){
+                            return $('#store_name').val();
+                        },
+                        id : '{$list.store_id}'
+                    }
+                }
+            },
+            end_time : {
+                dateISO : true
+            }
+        },
+        messages : {
+            owner_name: {
+                required: '店主名不能为空'
+            },
+            store_name: {
+                required: '店铺名不能为空',
+                remote: '店铺名已存在'
+            },
+            end_time : {
+                dateISO : '请填写正确的日期'
+            }
+        }
+    });
+})
+</script>
+<include file="Public:footer"/>

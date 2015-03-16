@@ -72,7 +72,7 @@ $(function(){
                             str+='<tr class="row'+id+'"><td><input class="checkitem" type="checkbox" value="'+res[i]['cate_id']+'" /></td>';
                             str+='<td>'+res[i]['switchs_html']+'<span title="可编辑" class="editable glyphicon" required="1" fieldid="'+res[i]['cate_id']+'" fieldname="cate_name" ectype="inline_edit" style="display:inline;">'+res[i]['cate_name']+'</span></td>';
                             str+='<td><span title="可编辑" class="editable glyphicon" required="1" fieldid="'+res[i]['cate_id']+'" fieldname="sort_order" ectype="inline_edit" style="display:inline;">'+res[i]['sort_order']+'</span></td>';
-                            str+='<td class="text-center">'+res[i]['if_show_html']+'</td>';
+                            if(res[i]['if_show_html']) str+='<td class="text-center">'+res[i]['if_show_html']+'</td>';
                             str+='<td class="text-right">';
                             str+=res[i]['edit']+' | '+res[i]['del']+' | '+res[i]['add_child'];
                             str+='</td></tr>';
