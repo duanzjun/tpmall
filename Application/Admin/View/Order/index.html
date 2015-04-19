@@ -1,0 +1,74 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+        <a class="btn btn-primary" href="#">管理</a>
+    </div>
+    <div class="filter">
+        <form method="get" action="__ACTION__">
+            <select  name="field_name">
+                <foreach name="search_options" item="query" key="k">
+                <option value="{$k}" <eq name="Think.get.field_name" value="$k">selected</eq>>{$query}</option>
+                </foreach>
+            </select>
+            <input class="w100" type="text" name="field_value" value="{$Think.get.field_value}"/>
+            <select name="status">
+                <option value="">订单状态</option>
+                <foreach name="order_status_list" item="status" key="k">
+                <option value="{$k}" <eq name="Think.get.status" value="$k">selected</eq>>{$status}</option>
+                </foreach>
+            </select>
+            <label>下单时间：</label>
+            <input class="w100" id="add_time_from" type="text" name="add_time_from" value="{$Think.get.add_time_from}" data-date-format="yyyy-mm-dd"/><span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+            <label>至：</label>
+            <input class="w100" id="add_time_to" type="text" name="add_time_to" value="{$Think.get.add_time_to}" data-date-format="yyyy-mm-dd"/>
+            <span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+            <button class="btn btn-xs btn-primary" type="submit">查询</button>
+            <eq name="filter" value="1">
+            <a class="btn btn-xs btn-primary" href="{:U('order/index')}">撤消检索</a>
+            </eq>
+        </form>
+    </div>
+</div>
+<div class="container-fluid">
+    <empty name="lists">
+        没有符合条件的记录
+    <else />
+    <table class="table table-hover">
+        <tr>
+            <th>店铺名称</th>
+            <th>订单号</th>
+            <th>下单时间</th>
+            <th>买家名称</th>
+            <th>订单总价</th>
+            <th>支付方式</th>
+            <th>订单状态</th>
+            <th class="text-right">操作</th>
+        </tr>
+        <volist name="lists" id="lst">
+        <tr>
+            <td>{$lst.seller_name}</td>
+            <td>{$lst.order_sn}</td>
+            <td>{$lst.add_time|date="Y-m-d H:i",###}</td>
+            <td>{$lst.buyer_name}</td>
+            <td>{$lst.order_amount}</td>
+            <td>{$lst.payment_name}</td>
+            <td>{$order_status_list[$lst['status']]}</td>
+            <td class="text-right">
+            <a href="{:U('order/view',array('id'=>$lst['order_id'],'ret_page'=>I('p',1,'intval')))}">查看</a>
+            </td>
+        </tr>
+        </volist>
+        <td class="text-right" colspan="8">{$page}</td>
+        </tr>
+    </table>
+    </empty>
+</div>
+<link rel="stylesheet" href="__PUBLIC__/css/datepicker.css">
+<script src="__PUBLIC__/js/bootstrap-datepicker.js"></script>
+<script>
+$(function(){
+    $('#add_time_from').datepicker();
+    $('#add_time_to').datepicker();
+});
+</script>
+<include file="Public:footer"/>

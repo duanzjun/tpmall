@@ -27,6 +27,7 @@ return array(
     'user' => '会员',
     'user_manage' => '会员管理',
     'admin_manage' => '管理员管理',
+    'user_notice' => '会员通知',
     'trade' => '交易',
     'website' => '网站',
     'acategory' => '文章分类',
@@ -75,4 +76,10 @@ return array(
         'gcategory' => '您还没有 <span class="red">添加商品分类</span>，请到 “<a href="index.php?app=gcategory"><span class="bold">商品 - 分类管理</span></a>” 中添加分类。',
         'scategory' => '您还没有 <span class="red">添加店铺分类</span>，请到 “<a href="index.php?app=scategory"><span class="bold">店铺 - 店铺分类</span></a>” 中添加分类。',
     ),
+    'order_pending'     => '待付款',
+    'order_accepted'   => '待发货',
+    'order_canceled'    => '已取消',
+    'order_submitted'   => '已提交',
+    'order_shipped'     => '已发货',
+    'order_finished'    => '已完成',
 );
