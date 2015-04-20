@@ -3,8 +3,9 @@
         echo '{__NOLAYOUT__}';
     }
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<!DOCTYPE html>
+<html>
+<head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 <title>系统发生错误</title>
 <style type="text/css">
@@ -50,9 +51,6 @@ h1{ font-size: 32px; line-height: 48px; }
 	</div>
 <?php }?>
 </div>
-</div>
-<div class="copyright">
-<p><a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a><sup><?php echo THINK_VERSION ?></sup> { Fast & Simple OOP PHP Framework } -- [ WE CAN DO IT JUST THINK ]</p>
 </div>
 </body>
 </html>
