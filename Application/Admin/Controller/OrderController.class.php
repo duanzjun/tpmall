@@ -55,4 +55,26 @@ class OrderController extends AdminController
         $this->assign('filter',empty($map)?0:1);
         $this->display();
     }
+
+    public function view()
+    {
+        $id=I('get.id',0,'intval');
+        $order_mod=M('Order');
+        $order=$order_mod->where('order_id='.$id)->find();
+        $order_goods=M('OrderGoods')->where('order_id='.$order['order_id'])->select();
+        $order_ext=M('OrderExtm')->where('order_id='.$order['order_id'])->find();
+
+        $this->assign('order_status_list', array(
+            C('ORDER_PENDING') => L('order_pending'),
+            C('ORDER_SUBMITTED') => L('order_submitted'),
+            C('ORDER_ACCEPTED') => L('order_accepted'),
+            C('ORDER_SHIPPED') => L('order_shipped'),
+            C('ORDER_FINISHED') => L('order_finished'),
+            C('ORDER_CANCELED') => L('order_canceled'),
+        ));
+        $this->assign('order',$order);
+        $this->assign('order_ext',$order_ext);
+        $this->assign('order_goods',$order_goods);
+        $this->display();
+    }
 }

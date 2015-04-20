@@ -1,0 +1,57 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">订单状态</div>
+          <ul class="panel-body list-unstyled">
+            <li>订单号：{$order.order_sn}</li>
+            <li>订单状态：{$order_status_list[$order['status']]}</li>
+            <li>订单总价：{$order.order_amount}</li>
+          </ul>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">订单详情</div>
+          <ul class="panel-body list-unstyled">
+            <li>买家名称：{$order.buyer_name}</li>
+            <li>卖家名称：{$order.seller_name}</li>
+            <li>支付方式：{$order.payment_name}</li>
+            <li>支付留言：{$order.pay_message}</li>
+            <li>支付时间：{$order.pay_time|date='Y-m-d',###}</li>
+            <li>发货时间：{$order.ship_time|date='Y-m-d',###}</li>
+            <li>完成时间：{$order.finised_time|date='Y-m-d',###}</li>
+          </ul>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">收获人及发货人信息</h3>
+          </div>
+          <ul class="panel-body list-unstyled">
+              <li>收货人姓名：{$order_ext.consignee}</li>
+              <li>所在地区：{$order_ext.region_name}</li>
+              <li>邮政编码：{$order_ext.zipcode}</li>
+              <li>电话号码：{$order_ext.phone_tel}</li>
+              <li>手机号码：{$order_ext.phone_mob}</li>
+              <li>详细地址：{$order_ext.address}</li>
+              <li>配送方式：{$order_ext.shipping_name}</li>
+              <li>发货单号：{$order.invoice_no}</li>
+          </ul>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">商品信息</h3>
+          </div>
+          <ul class="panel-body list-unstyled">
+            <volist name="order_goods" id="g">
+            <li><img src="{$g.goods_image}" width="30" height="30" /><p>{$g.goods_name}</p><p>单价：{$g.price}</p><p>数量：{$g.quantity}</p></li>
+            </volist>
+          </ul>
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>
