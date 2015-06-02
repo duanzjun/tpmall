@@ -1,10 +1,11 @@
 <?php
 namespace Admin\Controller;
-class RegionController extends AdminController
+class ThemeController extends AdminController
 {
     public function index()
     {
-        $region_mod=M('Region');
+
+        $this->assign('pages');
         $this->display();
     }
 }

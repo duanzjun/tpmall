@@ -60,8 +60,54 @@ class UserController extends AdminController
         $this->display();
     }
 
+    public function add()
+    {
+        if(!IS_POST){
+            $this->display('form');
+        }else{
+            $member_mod=M('Member');
+            if($member_mod->create()){
+                if($member_mod->add()){
+                    $this->success('编辑成功',U('member/index'));
+                }else{
+                    $this->error('编辑失败');
+                }
+            }else{
+                $this->error($this->getError());
+            }
+        }
+    }
+
     public function edit()
     {
+        if(!IS_POST){
+            $id=I('get.id',0,'intval');
+            $member_mod=M('Member');
+            $list=$member_mod->where('user_id='.$id)->find();
+            $this->assign('list',$list);
+            $this->display('form');
+        }else{
+            $member_mod=M('Member');
+            if($member_mod->create()){
+                if($member_mod->save()){
+                    $this->success('编辑成功',U('member/index',array('p'=>I('ret_page',1,'intval'))));
+                }else{
+                    $this->error('编辑失败');
+                }
+            }else{
+                $this->error($this->getError());
+            }
+        }
+    }
 
+    //图片上传
+    public function ajaxupload()
+    {
+        parent::ajaxUpload(array(
+            'upload_url'=>'data/files/mall/portrait/',    //图片显示地址
+            'upload_dir'=>'data/files/mall/portrait/',    //图片存放路径
+            'script_url'=>'index.php?m=admin&c=user&a=ajaxupload',    //处理图片地址
+            'rule'=>array('custom',trim($_GET['name']))
+        ));
     }
 }

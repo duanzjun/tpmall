@@ -1,0 +1,86 @@
+<include file="Public:header"/>
+<div class="container-fluid">
+    <div class="row right-top">
+        <a class="btn btn-<notempty name='lists'>primary<else/>default</notempty>" href="{:U('user/index')}">管理</a>
+        <a class="btn btn-<notempty name='list'>default<else/>primary</notempty>" href="{:U('user/add')}">新增</a>
+    </div>
+</div>
+<div class="container-fluid">
+    <form role="form" id="info-form" class="form-horizontal" action="__ACTION__" method="post">
+        <notempty name="list"><input type="hidden" name="cate_id" value="{$list.cate_id}" /></notempty>
+        <div class="form-group">
+            <label class="col-md-2 control-label">会员名:</label>
+            <div class="col-md-10"><notempty name="list.user_name">{$list.user_name}<else/><input class="form-control w200" type="text" name="user_name" /><div class="help-block"> 会员名</div></notempty></div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">密码:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="password" />
+                <div class="help-block"> 留空表示不修改密码</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">邮箱：</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="email" value="{$list.email}" />
+                <div class="help-block">电子邮箱</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">真实姓名:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="real_name" value="{$list.real_name}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">性别:</label>
+            <div class="col-md-10">
+                <label class="radio-inline"><input type="radio" name="gender" value="0" <eq name="list.gender" value="0">checked="checked"</eq>/>保密</label>
+                <label class="radio-inline"><input type="radio" name="gender" value="1" <eq name="list.gender" value="1">checked="checked"</eq>/>男</label>
+                <label class="radio-inline"><input type="radio" name="gender" value="2" <eq name="list.gender" value="2">checked="checked"</eq>/>女</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">QQ:</label>
+            <div class="col-md-10">
+                <input class="form-control w200" type="text" name="im_qq" value="{$list.im_qq}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">头像:</label>
+            <div class="col-md-10">
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-picture"></i>
+                        <span>上传头像</span>
+                        <input type="file" id="portrait" tabIndex="-1">
+                </span>
+                <input type="hidden" name="portrait" value="{$list.portrait}"/>
+                <span class="upload-portrait"><notempty name="list.portrait"><img src="{$list.portrait}"></notempty></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <button class="btn btn-primary" type="submit">提交</button>
+                <button class="btn btn-default" type="reset">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__PUBLIC__/js/jquery.ui.widget.js"></script>
+<script src="__PUBLIC__/js/jquery.fileupload.js"></script>
+<script>
+$(function(){
+   $('#portrait').fileupload({
+        url: "{:U('user/ajaxupload',array('name'=>'portrait'))}",
+        dataType: 'json',
+        done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('input[name="portrait"]').val(file.url)
+                    .next('.upload-portrait').html('<img src="'+file.url+'?t='+(Math.random())+'"/>');
+            });
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+});
+</script>
+<include file="Public:footer"/>
