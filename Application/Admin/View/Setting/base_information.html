@@ -82,17 +82,29 @@
     </form>
 </div>
 <script src="__PUBLIC__/js/jquery.ui.widget.js"></script>
+<script src="__PUBLIC__/js/jquery.iframe-transport.js"></script>
 <script src="__PUBLIC__/js/jquery.fileupload.js"></script>
 <script>
 $(function(){
    $('#site_logo').fileupload({
         url: "{:U('setting/ajaxupload',array('name'=>'site_logo'))}",
         dataType: 'json',
+        add:function(e,data){
+            // data.context='uploading...';
+            $('.fileinput-button span').text('上传中...');
+            $(this).prop('disabled',true);
+            data.submit();
+        },
         done: function (e, data) {
+            $('.fileinput-button span').text('上传图片');
             $.each(data.result.files, function (index, file) {
                 $('input[name="site_logo"]').val(file.url)
                     .next('.setting-logo').html('<img src="'+file.url+'?t='+(Math.random())+'"/>');
             });
+            $(this).prop('disabled',false);
+        },
+        fail:function(e,data){
+            $(this).prop('disabled',false);
         }
     }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
